@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <h:form id="frmAnioEscolarIngreso" target="_blank">    
+            <p:messages id="mensajeGenerarCodigo" showDetail="true" showSummary="false"/>
+            <p:separator style="opacity: 0; height: 5px;"/>
+            <p:panel id="panAnnoEscolar"  header="INGRESO DE AÑO ESCOLAR" style="background: #ccc;">                
+                <table style="width: 80%;margin: 0 auto;">
+                    <tr>
+                        <td><h:outputText value="INGRESE EL AÑO ESCOLAR"></h:outputText></td>
+                        <td>
+                            <p:inputText id="txtAnnoEscolar" size="44"
+                                         required="true"
+                                         requiredMessage="Ingrese el año escolar"
+                                         value="#{anioAcademicoController.sAnioEscolar}"
+                                         >                                                   
+                            </p:inputText>                                                    
+                        </td>
+                        <td style="width: 68px;"></td>
+                        <td/>
+                        <td style="float:right;">
+                            <p:commandButton process="@this,txtAnnoEscolar" 
+                                             update="mensajeGenerarCodigo"
+                                             value="Ingreso Año Escolar" 
+                                             id="btnAnnoEscolar"                                             
+                                             icon="ui-icon-document"   
+                                             style="background: rgba(0, 128, 0, 0.7);color:#000;"
+                                             actionListener="#{anioAcademicoController.establecerAnio()}"
+                                             >
+                            </p:commandButton>      
+                        </td>
+                        <td>
+                            <p:commandButton process="@this" value="LIMPIAR" icon="ui-icon-cancel" style="float:right;">
+                            </p:commandButton>   
+                        </td>    
+                        <td/>
+                    </tr>                               
+                </table>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    >
+    <style type="text/css">
+        #divHeader .ui-menu .ui-menu-parent .ui-menu-child {
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;            
+        }
+        #divHeader2 #divHeader_Top{
+            /*border-bottom: 10px solid rgba(213,213,213,0.9);*/
+            border-radius:20px 20px 0px 0px;
+        }   
+    </style>
+    <div id="divHeader2" style="height: 120px;">
+        <div id="divHeader_Top" style="height: 120px;">
+            <div id="divHeader_Header">
+                <div class="header">
+                    <div class="logo">
+                        <a>
+
+                        </a>
+                    </div>
+                    <div class="txtUsername">
+                        <ui:fragment>
+                            <h:form id="frmSesion">
+                                <span style="color: #2E74D1;font-size: 11px;"> 
+                                    <span style="font-weight: bold;">
+                                        <f:verbatim></f:verbatim>
+                                    </span> 
+                                    <h:outputLabel value="LUIS FLORES"/> 
+                                    <span style="font-weight: bold;">
+                                        <f:verbatim>-</f:verbatim>
+                                    </span> 
+                                    &nbsp;&nbsp;
+                                </span>                               
+                                <!--<a  style="font-weight: bold;">Cerrar sesión</a>-->
+                                <a href="${facesContext.externalContext.requestContextPath}/LoginServletController" style="font-weight: bold;">
+                                    <img title="Retornar" src="${facesContext.externalContext.requestContextPath}/resources/images/icon_return.png" height="128" width="128"/>
+                                </a>
+                                <p:remoteCommand name="onAbrirCambioContrasena" async="false"/>
+                            </h:form>                                
+                        </ui:fragment>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p:dialog header="Cambio de Contraseña" widgetVar="cambioContrasena" 
+              modal="true" closable="true" 
+              width="400" height="250" resizable="false"
+              dynamic="true" style="z-index: 99999;">
+        <p:ajax listener="#{loginController.onCerrarCambioContrasena}"/>
+        <h:form id="frmCambioContrasena">                
+            <p:panel id="panCambioContrasena" style="width: 370px;">
+                <table style="width:100%;" cellpadding="5" cellspacing="10">
+                    <tbody>
+                        <tr>
+                            <td style="width: 150px;"><h:outputLabel value="Contraseña anterior :"/></td>
+                            <td><p:password value="#{loginController.SContrasenaActual}" 
+                                            required="true" autocomplete="off" requiredMessage="Debe ingresar la contraseña anterior"
+                                            title="Contraseña Actual" maxlength="30" style="width: 150px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel value="Nueva Contraseña :"/></td>
+                            <td><p:password value="#{loginController.SNuevaContrasena}" 
+                                            required="true" autocomplete="off" requiredMessage="Debe ingresar la nueva contraseña"
+                                            title="Nueva Contraseña" maxlength="30" style="width: 150px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel value="Repita su nueva contraseña :"/></td>
+                            <td><p:password value="#{loginController.SRepitaContrasena}" 
+                                            required="true" autocomplete="off" requiredMessage="Debe ingresar la confiramación de la nueva contraseña"
+                                            title="Nueva Contraseña" maxlength="30" style="width: 150px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p:toolbar style="padding: 5px;width: 320px;" >
+                                    <p:toolbarGroup align="left">
+                                        <p:commandButton process="@this, :frmCambioContrasena" value="Enviar" icon="ui-icon-mail-closed" 
+                                                         action="#{loginController.cambioContrasena()}" update="msjCambioContrasena, :dlgMensajeContrasena"/>
+                                        <p:commandButton process="@this" value="Cerrar" icon="ui-icon-close" onclick="cambioContrasena.hide()"/>                                
+                                    </p:toolbarGroup>
+                                </p:toolbar>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p:messages id="msjCambioContrasena" showDetail="true" showSummary="false"/>
+            </p:panel>
+        </h:form>
+    </p:dialog> 
+
+    <p:dialog id="dlgMensajeContrasena" modal="true" header="Mensaje" widgetVar="msjValContrasena" resizable="false"
+              width="250" height="110" dynamic="true">
+        <p:panel style="border: 0px">
+            <table>
+                <tbody>
+                    <tr><td colspan="2"><h:outputLabel value="El cambio se realizó correctamente, desea volver a la pagina de inicio"/><br/><br/></td></tr>
+                </tbody>
+                <tfoot>                           
+                    <tr>
+                        <td style="text-align: center">
+                            <p:commandButton process="@this" value="Si" icon="ui-icon-close" action="#{loginController.cerrarSesion}" 
+                                             oncomplete="window.location='#{facesContext.externalContext.requestContextPath}/index.jsp?faces-redirect=true';" />
+                        </td>
+                        <td style="text-align: center" ><p:commandButton process="@this" value="No" icon="ui-icon-close" onclick="msjValContrasena.hide()" /></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </p:panel>
+    </p:dialog>
+
+    <p:dialog header="ATENCIONES POR VENCER" widgetVar="atencionesVencidas" 
+              modal="true" closable="true" 
+              width="1050" height="650" resizable="false"
+              dynamic="true" style="z-index: 99999;">
+        <h:form id="frmAtencionesVencidas">    
+            <p:growl showSummary="false" showDetail="true" id="msjFiltro"/>
+            <p:panel id="panAtencionesVencidas" style="width: 1000px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td style="width: 100px;"><b style="color: #000;">Nº PLACA:</b></td>
+                                        <td>
+                                            <p:inputText id="sPlaca" size="44" value="#{atencionVencidasController.sNumeroPlaca}" style="width: 110px" 
+                                                         validatorMessage="Ingrese una longitud mínima de 3 caracteres para el campo Apellidos">
+                                                <f:validateLength minimum="3" />
+                                            </p:inputText>                                                    
+                                        </td>
+                                        <td style="width: 68px;"></td>
+                                        <td>
+                                            <p:selectBooleanCheckbox id="bVencidas" value="#{atencionVencidasController.bVencidas}">
+<!--                                                <p:ajax update="dtListaAtencionesVencidas" listener="#{atencionVencidasController.filtrarAtencionesVencidas}"/>-->
+                                            </p:selectBooleanCheckbox>
+                                        </td>                                                                 
+                                        <td style="width: 300px;"><b style="color: #000;">Ver Solo Atenciones Vencidas</b></td>               
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td style="width: 100px"><b style="color: #000;">Nº:</b></td>
+                                        <td>
+                                            <p:inputText id="numDoc" maxlength="10" value="#{atencionVencidasController.nNumeroDocumento}" style="width: 110px">    
+                                            </p:inputText>
+                                        </td>
+                                        <td style="width: 18px;"></td>
+                                        <td style="width: 50px">CLIENTE :</td>
+                                        <td style="width: 358px">
+                                            <p:inputText id="sApellidos" value="#{atencionVencidasController.sNombreCompleto}" style="width: 97.5%" 
+                                                         validatorMessage="Ingrese una longitud mínima de 3 caracteres para el campo Apellidos">
+                                                <f:validateLength minimum="3" />
+                                            </p:inputText>                                                    
+                                        </td>
+                                        <td style="width: 118px;"></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td style="width: 100px"><b style="color: #000;">FECHA :</b></td>
+                                        <td style="width: 25px"><b style="color: #000;">Desde</b></td>
+                                        <td style="width: 75px">
+                                            <p:calendar maxlength="20" value ="#{atencionVencidasController.dFechaInicio}" mode="popup" id="fechaInicialIngreso" size="8" locale="es" navigator="true" pattern="dd/MM/yyyy" 
+                                                        mindate="01/01/1900"><!-- value : guardar la propiedad-->
+                                                <!--<p:ajax event="dateSelect" listener="#" update=":frmRegistroAtencion:fechaAtencionIni"/>-->
+                                            </p:calendar>
+                                        </td>
+                                        <td style="width: 35px;"></td>
+                                        <td style="width: 35px;"><b style="color: #000;">Hasta</b></td>
+                                        <td>
+                                            <p:calendar maxlength="20" value ="#{atencionVencidasController.dFechaFin}" mode="popup" id="fechaFinalIngreso" size="8" locale="es" navigator="true" pattern="dd/MM/yyyy" style="width: 75px"
+                                                        mindate="01/01/1900"><!-- value : guardar la propiedad-->
+                                                <!--<p:ajax event="dateSelect" listener="#" update=":frmRegistroAtencion:fechaAtencionIni"/>-->
+                                            </p:calendar>
+                                        </td>
+                                        <td style="width: 300px;"></td>
+                                        <td colspan="2">
+                                            <div style="float:right">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <p:commandButton id="btnBuscar" process="@this, numDoc, sApellidos, sPlaca, fechaInicialIngreso, fechaFinalIngreso, bVencidas " value="Buscar" 
+                                                                             icon="ui-icon-search" action="#{atencionVencidasController.filtrarAtencionesVencidas}" 
+                                                                             update="frmAtencionesVencidas:panAtencionesVencidas, msjFiltro" style="background: rgba(0, 128, 0, 0.7);width: 100%"/>
+                                                        </td>
+                                                        <td>
+                                                            <p:commandButton process="@this" value="Limpiar" icon="ui-icon-cancel" update="frmAtencionesVencidas:panAtencionesVencidas"
+                                                                             actionListener="#{atencionVencidasController.limpiar()}">
+
+                                                            </p:commandButton>   
+                                                        </td>
+                                                        <td>
+                                                            <h:commandLink>
+                                                                <p:graphicImage  value="/images/icons/excel.png" />
+                                                                <p:dataExporter type="xls" target="dtListaAtencionesVencidas" fileName="Atenciones vencidas" postProcessor="#{atencionVencidasController.exportarExcel}"/>
+                                                            </h:commandLink>
+                                                        </td>                                                        
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>                                     
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+
+                                <p:dataTable id="dtListaAtencionesVencidas"
+                                             value="#{atencionVencidasController.lstAtencionesVencidas}"
+                                             var="item"
+                                             rowKey="#{item.nIdOrdenAtencion}" 
+                                             selectionMode="single"
+                                             scrollable="true" 
+                                             scrollHeight="380" 
+                                             emptyMessage="El filtro ingresado no arrojo coincidencias, por favor ingrese otro"
+                                             rowIndexVar="index"> 
+                                    <p:column width="10" style="text-align: right; width: 10px" >
+                                        <f:facet name="header">
+                                            <h:outputText value="N°"/>
+                                        </f:facet>
+                                        <h:outputText value="#{index + 1}"  style="color:#{item.sColorVencimiento};" />
+                                    </p:column>
+                                    <p:column width="60" style="text-align: center; width: 60px">
+                                        <f:facet name="header">
+                                            <h:outputText value="Nº ATENCIÓN"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sNumeroOrden}" style="color:#{item.sColorVencimiento};" >
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column width="230" style="text-align: center; width: 230px">
+                                        <f:facet name="header">
+                                            <h:outputText value="CLIENTE"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sNombreCompleto}" style="color:#{item.sColorVencimiento};"/>
+                                    </p:column>
+                                    <p:column width="50" style="text-align: left; width: 50px">
+                                        <f:facet name="header">
+                                            <h:outputText value="Nº TELEF."/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sTelefono}"  style="color:#{item.sColorVencimiento};"/>
+                                    </p:column> 
+                                    <p:column width="150" style="text-align: left; width: 150px">
+                                        <f:facet name="header">
+                                            <h:outputText value="EMAIL"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sEmail}" style="color:#{item.sColorVencimiento};"/>
+                                    </p:column>                                     
+                                    <p:column width="50" style="text-align: left; width: 50px">
+                                        <f:facet name="header">
+                                            <h:outputText value="Nº PLACA"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sNumeroPlaca}" style="color:#{item.sColorVencimiento};"/>
+                                    </p:column>
+                                    <p:column width="60" style="text-align: left; width: 60px">
+                                        <f:facet name="header">
+                                            <h:outputText value="FECHA"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sFechaRegistro}" style="text-transform: uppercase;color:#{item.sColorVencimiento};"/>
+                                    </p:column>                                              
+
+                                    <p:column width="40" style="text-align: left; width: 40px">
+                                        <f:facet name="header">
+                                            <h:outputText value="KM/D"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sKilometrosXhora}" style="color:#{item.sColorVencimiento};"/>
+                                    </p:column>    
+                                    <p:column width="30" style="text-align: center; width: 30px">
+                                        <f:facet name="header">
+                                            <h:outputText value="DIAS"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sDiasAcumulados}" style="color:#{item.sColorVencimiento};"/> 
+                                    </p:column>                                    
+                                    <p:column width="50" style="text-align: left; width: 50px">
+                                        <f:facet name="header">
+                                            <h:outputText value="KM. APROX."/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.sKilometrajeTotal}" style="color:#{item.sColorVencimiento};"/>
+                                    </p:column>  
+
+                                    <!--                    <p:column width="60" style="width: 60px; text-align: center;">
+                                                            <f:facet name="header">
+                                                                <h:outputText value="OPCIONES"/>
+                                                            </f:facet>
+                                                            <p:commandButton actionListener="#{atencionController.verDetallesGrupo(item.nIdOrdenAtencion, item.sNombreCompleto)}" 
+                                                                             oncomplete="manteOrdenAtencion.show()" 
+                                                                             update=":frmRegistroAtencion" 
+                                                                             style="width: 20px; height: 20px;"
+                                                                             icon="ui-icon-pencil">
+                                                                <pe:resetInput for=":frmRegistroAtencion"/>
+                                                            </p:commandButton>
+                                                            <p:commandButton oncomplete="wConfirmaEliminar1.show()"
+                                                                             disabled="#{item.sEstado =='0' || loginController.isBEsMecanico()}"
+                                                                             style="width: 20px; height: 20px;"
+                                                                             icon="ui-icon-trash">
+                                                                <f:setPropertyActionListener value="#{item}" target="#{atencionController.filtroProductoAtencionBean}"/>
+                                                            </p:commandButton>
+                                                        </p:column>                                            -->
+                                </p:dataTable>
+                            </td>
+                        </tr>
+                        <p:messages id="msjAtencionesVencidas" showDetail="true" showSummary="false"/>
+                    </tbody>
+                </table>
+            </p:panel>
+        </h:form>
+    </p:dialog> 
+</ui:composition>
+
+

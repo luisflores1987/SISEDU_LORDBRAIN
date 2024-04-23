@@ -1,0 +1,23 @@
+/* 0 of 1107 unused characters has been removed. */
+.footer-branding
+{font-family:"Helvetica Neue,Helvetica,Arial,sans-serif";font-size:11px;font-weight:500;line-height:21px;position:relative}
+.footer-branding__copyright
+{display:block;left:0;padding-left:10px;position:relative;top:3px}
+.footer-secondary
+{background-color:#27AE60;color:#837E76;font-family:"Tahoma,Geneva,sans-serif";font-size:9px;padding:40px 0}
+.footer-secondary__branding
+{display:block;float:right;margin-bottom:15px;width:20%}
+.footer-secondary__branding:after
+{clear:both;content:"";display:table}
+.footer-secondary__copyright
+{display:block;float:left;list-style:none outside none;margin:0 0 10px;text-transform:uppercase;width:80%}
+.footer-secondary__copyright > li
+{display:inline-block;padding-right:20px;position:relative}
+.footer-secondary__copyright > li:after
+{content:"|";left:-13px;position:absolute;top:0}
+.footer-secondary__copyright > li:first-child:after
+{display:none}
+.footer-secondary__copyright > li > a
+{color:#CDA869}
+.footer-secondary__trademarks
+{display:block;float:left;font-family:"OpenSansRegular";font-size:10px;font-variant:small-caps;font-weight:500;line-height:15px;width:80%}
