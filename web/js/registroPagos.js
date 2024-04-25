@@ -238,6 +238,7 @@ function buscarPagoBuscarPagosAlumno(numeroDocumento) {
 
                         fnHabilitarTextBoxBuscarPagosAlumno(nIdAlumnoDeuda);
                         fnCancelarBoletasBuscarPagosAlumno(nIdAlumnoDeuda);
+                        obtenerNumeroRecibo();
                     }
 
                     fnIngresoBoletaBuscarPagosAlumno();
