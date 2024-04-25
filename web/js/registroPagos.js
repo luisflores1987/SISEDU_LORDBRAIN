@@ -238,7 +238,7 @@ function buscarPagoBuscarPagosAlumno(numeroDocumento) {
 
                         fnHabilitarTextBoxBuscarPagosAlumno(nIdAlumnoDeuda);
                         fnCancelarBoletasBuscarPagosAlumno(nIdAlumnoDeuda);
-                        obtenerNumeroRecibo();
+                        obtenerNumeroRecibo(); /*se agrega comentario para obtener recibo*/
                     }
 
                     fnIngresoBoletaBuscarPagosAlumno();
