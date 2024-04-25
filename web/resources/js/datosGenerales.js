@@ -18,6 +18,7 @@ function fnCargarNivel() {
                 limparselect();
                 if (data == '') {
                     $('#cboNivel').append('<option value = 0></option>');
+                    $('#cboNivelPagos').append('<option value = 0></option>');
                 }
                 else {
                     $('#cboNivel').append('<option value = 0></option> ');
@@ -25,11 +26,13 @@ function fnCargarNivel() {
                         var idNivel = arregloAlumnos[i].split("-")[0];
                         var Descripcion = arregloAlumnos[i].split("-")[1];
                         $('#cboNivel').append('<option value = ' + idNivel.trim() + '>' + Descripcion + '</option> ');
+                        $('#cboNivelPagos').append('<option value = ' + idNivel.trim() + '>' + Descripcion + '</option> ');
                     }
                 }
             });
     function limparselect() {
         $('#cboNivel option').remove();
+        $('#cboNivelPagos option').remove();
     }
 }
 

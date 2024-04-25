@@ -6,6 +6,13 @@ $(document).ready(function(){
         }
     });
     
+     $('#txtDniPagos').keypress(function(e) {
+        var verified = (e.which == 8 || e.which == undefined || e.which == 0) ? null : String.fromCharCode(e.which).match(/[^0-9]/);
+        if (verified) {
+            e.preventDefault();
+        }
+    });
+    
     $('#txtRecibo').keypress(function(e) {
         var verified = (e.which == 8 || e.which == undefined || e.which == 0) ? null : String.fromCharCode(e.which).match(/[^0-9]/);
         if (verified) {
@@ -25,7 +32,14 @@ $(document).ready(function(){
         if (verified) {
             e.preventDefault();
         }
-    }); 
+    });
+    
+    $('#txtNReciboPagos').keypress(function(e) {
+        var verified = (e.which == 8 || e.which == undefined || e.which == 0) ? null : String.fromCharCode(e.which).match(/[^0-9]/);
+        if (verified) {
+            e.preventDefault();
+        }
+    });    
     
     $('#txtMontoPension').keypress(function(e) {
         var verified = (e.which == 8 || e.which == undefined || e.which == 0) ? null : String.fromCharCode(e.which).match(/[^0-9.]/);
@@ -79,6 +93,10 @@ $(document).ready(function(){
     //Reporte asistencia 
     // mayuscula
     $('#txtApNom').keypress(function(e){
+        $(this).css('text-transform','uppercase');        
+    });
+    
+    $('#txtApNomPagos').keypress(function(e){
         $(this).css('text-transform','uppercase');        
     });
     

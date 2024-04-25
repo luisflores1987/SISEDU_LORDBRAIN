@@ -148,7 +148,7 @@ public class ConsultaDeudasDAO {
             cs.setString(2, numeroRecibo);            
             ResultSet rs = cs.executeQuery();
             if(rs.next()){
-                montoTotalPagar = rs.getString(6); //suma monto total
+                montoTotalPagar = rs.getString(2); //suma monto total
             }            
         } catch (SQLException e) {
             throw new RuntimeException(e);

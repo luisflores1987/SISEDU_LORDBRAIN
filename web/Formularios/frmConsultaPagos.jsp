@@ -30,7 +30,7 @@
             };
             $.datepicker.setDefaults($.datepicker.regional['es']);
             $(function() {
-                $("#txtFechaConsultaINICIAL").datepicker({
+                $("#txtFechaConsultaINICIALPagos").datepicker({
                     changeMonth: true,
                     changeYear: true
                             //                   showOn: "button"
@@ -38,7 +38,7 @@
                             //                    buttonImageOnly: true,
                             //                    showButtonPanel: true                    
                 });
-                $("#txtFechaConsultaFIN").datepicker({
+                $("#txtFechaConsultaFINPagos").datepicker({
                     changeMonth: true,
                     changeYear: true,
                     //                    showOn: "button",
@@ -84,26 +84,26 @@
                                         <div class="form-group">
                                             <label class="control-label col-sm-1">Fecha</label>
                                             <div class="col-sm-11 form-inline">
-                                                <input type="text" class="form-control" id="txtFechaConsultaINICIAL" value="" placeholder="DD/MM/YYYY"/>
-                                                <input type="text" class="form-control" id="txtFechaConsultaFIN" value="" placeholder="DD/MM/YYYY"/>
+                                                <input type="text" class="form-control" id="txtFechaConsultaINICIALPagos" value="" placeholder="DD/MM/YYYY"/>
+                                                <input type="text" class="form-control" id="txtFechaConsultaFINPagos" value="" placeholder="DD/MM/YYYY"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-sm-1">Dni</label>
                                             <div class="col-sm-11 form-inline">
-                                                <input type="text" class="form-control" id="txtDni" value="" placeholder="Ingresar número..."/>
+                                                <input type="text" class="form-control" id="txtDniPagos" value="" placeholder="Ingresar número..."/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-sm-1">Alumno</label>                                            
                                             <div class="col-sm-3 col-sm-offset-0">
-                                                <input type="text" class="form-control" id="txtApNom" value="" placeholder="Ingresar texto..."/>
+                                                <input type="text" class="form-control" id="txtApNomPagos" value="" placeholder="Ingresar texto..."/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-sm-1">Nivel</label>
                                             <div class="col-sm-11 form-inline">
-                                                <select id="cboNivel" class="form-control" name="NIVEL">
+                                                <select id="cboNivelPagos" class="form-control" name="NIVEL">
                                                     <option>
                                                     <option>                                                        
                                                         Seleccione
@@ -114,7 +114,7 @@
                                         <div class="form-group">                                        
                                             <label class="control-label col-sm-1">Nº Boleta</label>
                                             <div class="col-sm-11 form-inline">
-                                                <input type="text" id="txtNRecibo" class="form-control" value="" placeholder="Ingresar número..."/>
+                                                <input type="text" id="txtNReciboPagos" class="form-control" value="" placeholder="Ingresar número..."/>
                                             </div>
                                         </div>
 

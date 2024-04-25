@@ -25,15 +25,13 @@ $(document).ready(function() {
         $(".classRegAlumno").removeAttr("disabled");
         $(".classRegAlumnoBoton").removeAttr("disabled");
         $(".classRegAlumno").css("background", "#FFFFAA");
-        $("#txtDni").focus();
+        $("#txtDniPagos").focus();
     })
 
     $("#btnCancelarRegistroPago").on("click", function(e) {
         cancelarBuscarPagosAlumno();
         e.preventDefault();
     })
-
-    eventoCheckBoxConsultaBuscarPagosAlumno();
 
     $("#btnBuscarRegistroPago").on("click", function(e) {
         buscarAlumnoRegistroPago();
@@ -51,7 +49,6 @@ $(document).ready(function() {
     obtenerNumeroRecibo();
     $('#txtReciboDetalle').prop('readonly', true);
     
-    inhabilitartextBoxConsulta()
 });
 
 function buscarAlumnoRegistroPago() {
@@ -258,6 +255,7 @@ function fnIngresoBoletaBuscarPagosAlumno() {
         
         var resultado = ingresarBoletaBuscarPagosAlumno(function(resultado) {
             if(resultado) {
+                setTimeout(function() { fnactualizarPagoBuscarPagosAlumno($("#lblDNI").text().trim()); }, 1000);
                 setTimeout(function() { actualizarRecibo(); }, 2000);
                 setTimeout(function() { obtenerNumeroRecibo(); }, 2005);
             }
@@ -436,7 +434,6 @@ function ingresarBoletaBuscarPagosAlumno(callback) {
                                 $("#txtReciboDetalle").val("");
 
                                 limpiarselectPagoBuscarPagosAlumno();
-                                fnactualizarPagoBuscarPagosAlumno($("#lblDNI").text().trim());
                                 callback(true);
                             }
                         });
@@ -481,12 +478,12 @@ function buscarAlumnoPagoBuscarPagosAlumno() {
         url: "registroPagoServletController",
         data: {
             action: "consultaAlumnoPago",
-            txtDni: $("#txtDni").val(),
-            txtApNom: $("#txtApNom").val(),
-            cboNivel: $('#cboNivel option:selected').val(),
-            txtRecibo: $("#txtNRecibo").val(),
-            txtFechaInicial: $("#txtFechaConsultaINICIAL").val(),
-            txtFechaFin: $("#txtFechaConsultaFIN").val()
+            txtDniPagos: $("#txtDniPagos").val(),
+            txtApNomPagos: $("#txtApNomPagos").val(),
+            cboNivelPagos: $('#cboNivelPagos option:selected').val(),
+            txtNReciboPagos: $("#txtNReciboPagos").val(),
+            txtFechaConsultaINICIALPagos: $("#txtFechaConsultaINICIALPagos").val(),
+            txtFechaConsultaFINPagos: $("#txtFechaConsultaFINPagos").val()
         },
         beforeSend: function() {
             $('body').addClass('loading'); //Agregamos la clase loading al body.. para que aparezca al cargar.
@@ -553,12 +550,12 @@ function limpiarselectPagoBuscarPagosAlumno() {
 
 function inhabilitartextBoxConsultaBuscarPagosAlumno() {
 
-    $('#txtFechaConsultaINICIAL').attr("disabled", "disabled");
-    $('#txtFechaConsultaFIN').attr("disabled", "disabled");
-    $('#txtDni').attr("disabled", "disabled");
-    $('#cboNivel').attr("disabled", "disabled");
-    $('#txtApNom').attr("disabled", "disabled");
-    $('#txtNRecibo').attr("disabled", "disabled");
+    $('#txtFechaConsultaINICIALPagos').attr("disabled", "disabled");
+    $('#txtFechaConsultaFINPagos').attr("disabled", "disabled");
+    $('#txtDniPagos').attr("disabled", "disabled");
+    $('#cboNivelPagos').attr("disabled", "disabled");
+    $('#txtApNomPagos').attr("disabled", "disabled");
+    $('#txtNReciboPagos').attr("disabled", "disabled");
 
 }
 
@@ -756,7 +753,7 @@ function fnBuscarConsultaPagosAlumno() {
             }
         });
 
-        if ($("#cboNivel").val() > 0) {
+        if ($("#cboNivelPagos").val() > 0) {
             bValidar = true;
         }
         ;
@@ -844,11 +841,11 @@ function fnGetDateActual()
 
 function inhabilitartextBoxConsulta(){
     
-    $('#txtFechaConsultaINICIAL').attr("disabled", "disabled");
-    $('#txtFechaConsultaFIN').attr("disabled", "disabled"); 
-    $('#txtDni').attr("disabled", "disabled"); 
-    $('#cboNivel').attr("disabled", "disabled");  
-    $('#txtApNom').attr("disabled", "disabled");
-    $('#txtNRecibo').attr("disabled", "disabled");   
+    $('#txtFechaConsultaINICIALPagos').attr("disabled", "disabled");
+    $('#txtFechaConsultaFINPagos').attr("disabled", "disabled"); 
+    $('#txtDniPagos').attr("disabled", "disabled"); 
+    $('#cboNivelPagos').attr("disabled", "disabled");  
+    $('#txtApNomPagos').attr("disabled", "disabled");
+    $('#txtNReciboPagos').attr("disabled", "disabled");   
     
 }

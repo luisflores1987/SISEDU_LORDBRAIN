@@ -197,12 +197,12 @@ public class registroPagoServletController extends HttpServlet {
 
     private void consultaAlumnoPago(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        String sDni = request.getParameter("txtDni");
-        String sNombres = request.getParameter("txtApNom");
-        int nNivel = Integer.valueOf(request.getParameter("cboNivel").equals("") ? "0" : request.getParameter("cboNivel"));
-        String sRecibo = request.getParameter("txtRecibo");
-        String sFechaInicial = request.getParameter("txtFechaInicial");
-        String sFechaFinal = request.getParameter("txtFechaFin");    
+        String sDni = request.getParameter("txtDniPagos");
+        String sNombres = request.getParameter("txtApNomPagos");
+        int nNivel = Integer.valueOf(request.getParameter("cboNivelPagos").equals("") ? "0" : request.getParameter("cboNivelPagos"));
+        String sRecibo = request.getParameter("txtNReciboPagos");
+        String sFechaInicial = request.getParameter("txtFechaConsultaINICIALPagos");
+        String sFechaFinal = request.getParameter("txtFechaConsultaFINPagos");  
         System.out.printf("sDni : " + sDni);
         boolean bFecha = (sFechaInicial!="" && sFechaFinal!="")?true:false;
         boolean bDni = sDni!=null && !sDni.equals("");;
